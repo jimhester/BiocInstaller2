@@ -46,8 +46,9 @@ repositories <- function(version = NULL,
 }
 
 #' @export
-biocLite <- function(pkgs = c("Biobase", "IRanges", "AnnotationDbi"), 
-  repos <- repositiories(), ...) {
+biocLite <- function(pkgs = c("Biobase", "IRanges", "AnnotationDbi"),
+  repos = repositiories(), ...) {
+
   old <- old.packages(repos = repos, ...)
   if (NROW(old)) {
     if (interactive()) {
@@ -70,7 +71,7 @@ set_repositories <- function(...) {
   options(repos = repositories(...))
 }
 
-mirror <- "https://bioconductor.org/packages"
+mirror <- "https://bioconductor.org"
 
 #' @export
 set_mirror <- function(url) {
@@ -80,14 +81,14 @@ set_mirror <- function(url) {
 build_repos <- function(version) {
   repos <- getOption("repos", character())
   repos["CRAN"] <- repos["CRAN"] %||% "@CRAN@"
-  repos["BioCsoft"] <- sprintf("%s/%s/bioc", mirror, version)
-  repos["BioCann"] <- sprintf("%s/%s/data/annotation", mirror, version)
-  repos["BioCexp"] <- sprintf("%s/%s/data/experiment", mirror, version)
-  repos["BioCextra"] <- sprintf("%s/%s/extra", mirror, version)
+  repos["BioCsoft"] <- sprintf("%s/packages/%s/bioc", mirror, version)
+  repos["BioCann"] <- sprintf("%s/packages/%s/data/annotation", mirror, version)
+  repos["BioCexp"] <- sprintf("%s/packages/%s/data/experiment", mirror, version)
+  repos["BioCextra"] <- sprintf("%s/packages/%s/extra", mirror, version)
   repos
 }
 
-bioc_metadata <- function(url = "https://bioconductor.org/config.yaml") {
+bioc_metadata <- function(url = paste0(mirror, "/config.yaml")) {
   data <- yaml::yaml.load(paste(readLines(url), collapse = "\n"))
 
   list(
