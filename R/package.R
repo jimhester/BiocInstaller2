@@ -46,8 +46,9 @@ repositories <- function(version = NULL,
 }
 
 #' @export
-biocLite <- function(pkgs = c("Biobase", "IRanges", "AnnotationDbi"), ...) {
-  old <- old.packages(...)
+biocLite <- function(pkgs = c("Biobase", "IRanges", "AnnotationDbi"), 
+  repos <- repositiories(), ...) {
+  old <- old.packages(repos = repos, ...)
   if (NROW(old)) {
     if (interactive()) {
       message("Old packages: ", paste0("'", old[, "Package"], "'", collapse = ", "))
@@ -57,11 +58,11 @@ biocLite <- function(pkgs = c("Biobase", "IRanges", "AnnotationDbi"), ...) {
         none = NULL)
 
       if (!is.null(ask)) {
-        update.packages(ask = ask, ...)
+        update.packages(ask = ask, repos = repos, ...)
       }
     }
   }
-  install.packages(pkgs, ...)
+  install.packages(pkgs, repos = repos, ...)
 }
 
 #' @export
