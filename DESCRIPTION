@@ -1,0 +1,12 @@
+Package: BiocInstaller2
+Title: Prototype for simpler BiocInstaller
+Version: 0.0.0.9000
+Authors@R: person("Jim", "Hester", email = "james.f.hester@gmail.com", role = c("aut", "cre"))
+Description: Prototype for simpler BiocInstaller
+Depends:
+    R (>= 3.2.0)
+Imports:
+    yaml
+License: MIT + file LICENSE
+LazyData: true
+RoxygenNote: 5.0.0
